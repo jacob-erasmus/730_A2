@@ -1,5 +1,7 @@
 package reviewSystem.services;
 
+import reviewSystem.models.Submission;
+
 public class NotificationService {
     // [alt accepted] EvaluationManager calls NoficationService notifyAcceptance()
     public void notifyAcceptance(Submission submission) {

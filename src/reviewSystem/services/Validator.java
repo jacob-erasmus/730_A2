@@ -5,6 +5,7 @@ public class Validator {
     // returns "valid" or "invalid"
     // If invalid will return error.
     // If valid will continue.
+
     public String validateFormat(Object data) {
         if (data == null) {
             return "invalid";
