@@ -8,6 +8,10 @@ public class Researcher {
         this.ui = ui;
     }
     
+    public void setUI(UI ui) {
+        this.ui = ui;
+    }
+    
     public void submitResearchOutput(Object data) {
         ui.submitResearchOutput(data);
     }

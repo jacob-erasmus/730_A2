@@ -6,7 +6,7 @@ import reviewSystem.models.Submission;
 public class NotificationService {
     private Researcher researcher;
     
-    public NotificationService() {
+    public NotificationService(Researcher researcher) {
         this.researcher = researcher;
     }
 
