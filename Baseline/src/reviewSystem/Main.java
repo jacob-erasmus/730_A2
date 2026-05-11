@@ -5,7 +5,6 @@ import reviewSystem.services.Validator;
 import reviewSystem.actors.Researcher;
 import reviewSystem.controllers.SubmissionController;
 import reviewSystem.data.Database;
-import reviewSystem.models.Reviewer;
 import reviewSystem.services.EvaluationManager;
 import reviewSystem.services.NotificationService;
 import reviewSystem.services.ReviewerManager;

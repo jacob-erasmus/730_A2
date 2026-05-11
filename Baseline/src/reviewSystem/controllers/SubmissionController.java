@@ -8,7 +8,6 @@ import reviewSystem.data.Database;
 import reviewSystem.models.Reviewer;
 import reviewSystem.models.Submission;
 import reviewSystem.services.EvaluationManager;
-import reviewSystem.services.NotificationService;
 import reviewSystem.services.ReviewerManager;
 
 /**
