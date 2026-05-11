@@ -3,49 +3,75 @@ package reviewSystem.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import reviewSystem.models.EvaluationResult;
+import reviewSystem.data.Database;
 import reviewSystem.models.Reviewer;
 import reviewSystem.models.Submission;
 
+/**
+ * Class as shown in the diagram.
+ * Tracable interactions:
+ * SubmissionController calls EvaluationManager startEvaluation()
+ * [loop each reviewer] 
+ * Reviewer -> EvaluationManager submitScore()
+ * EvaluationManager -> Database saveScore(score)
+ * EvaluationManager self calls calculateAverage()
+ * EvaluationManager self calls checkConsensus()
+ * EvaluationManager self calls applyRules()
+ * [alt accepted] EvaluationManager calls NoficationService notifyAcceptance()
+ * [alt rejected] EvaluationManager calls NotificationService notifyRejection()
+ * [alt revision] EvaluationManager calls NotificationService notifyRevision()
+ */
 public class EvaluationManager {
     // thresholds not specified, so placeholders.
     private static final double ACCEPT_THRESHOLD = 7.0;
     private static final double REJECT_THRESHOLD = 3.0;
     // Diagram shows EvaluationManager -> NotificationService calls
     private NotificationService notificationService;
+    private Database database;
 
-    public EvaluationManager(NotificationService notificationService) {
+    public EvaluationManager(NotificationService notificationService, Database database) {
         this.notificationService = notificationService;
+        this.database = database;
     }
 
     /**
      * SubmissionController calls EvaluationManager startEvaluation()
-     * Loop each reviewer, calls submitScore(score)
-     * then calculateAverage(), checkConsensus(), applyRules()
-     * returns EvaluationResult
+     * The full evaluation sequence:
+     * [loop - each reviewer] calls submitScore(score)
+     * calculateAverage()
+     * checkConsensus()
+     * applyRules()
+     * [alt] notifyAcceptance() / notifyRejection() / notifyRevision()
      */
-    public EvaluationResult startEvaluation(Submission submission) {
+    public void startEvaluation(Submission submission) {
         List<Double> scores = new ArrayList<>();
         //loop for each reviewer
+        // Reviewer -> EvaluationManager submitScore()
         for (Reviewer reviewer : submission.getAssignedReviewers()) {
             double score = reviewer.submitScore();
-            scores.add(score);
+            // EvaluationManager -> Database saveScore(score)
+            database.saveScore(score);
         }
+        // EvaluationManager self calls calculateAverage()
         double averageScore = calculateAverage(scores);
+        // EvaluationManager self calls checkConsensus()
         boolean consensus = checkConsensus(scores);
+        // EvaluationManager self calls applyRules()
         String outcome = applyRules(averageScore, consensus);
 
         // alt accepted
+        // EvaluationManager calls NoficationService notifyAcceptance()
         if (outcome.equals("accepted")) {
             notificationService.notifyAcceptance(submission);
         // alt rejected
+        // EvaluationManager calls NotificationService notifyRejection()
         } else if (outcome.equals("rejected")) { 
             notificationService.notifyRejection(submission);
         // alt revision
+        // EvaluationManager calls NotificationService notifyRevision()
         } else { 
             notificationService.notifyRevision(submission);
         }
-        return new EvaluationResult(averageScore, consensus, outcome, scores);
     }
 
     // EvaluationManager self calls calculateAverage(scores)

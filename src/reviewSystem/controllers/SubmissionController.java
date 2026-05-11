@@ -2,70 +2,70 @@ package reviewSystem.controllers;
 
 import java.util.List;
 
-import javax.management.Notification;
 import reviewSystem.services.Validator;
 
 import reviewSystem.data.Database;
-import reviewSystem.models.EvaluationResult;
 import reviewSystem.models.Reviewer;
 import reviewSystem.models.Submission;
 import reviewSystem.services.EvaluationManager;
 import reviewSystem.services.NotificationService;
 import reviewSystem.services.ReviewerManager;
 
-// central controller (submit(data) in diagram) coordinates all downstream calls
+/**
+ * Class as shown in the diagram.
+ * Central orchestrator of the sequence.
+ * Tracable interactions:
+ * UI calls SubmissionController submit(data)
+ * SubmissionController calls Validator validateFormat(data)
+ * Validator -> SubmissionController valid/invalid
+ * [alt invalid] SubmissionController returns error
+ * [alt valid] 
+ * SubmissionController calls Database saveSubmission(data)
+ * Database -> SubmissionController confirmation
+ * SubmissionController calls ReviewerManager getAvaliableReviewers()
+ * ReviewrManager -> filteredReviewers
+ * [loop - assign reviewers] SubmissionController calls Reviewer assignReview()
+ * SubmissionController calls EvaluationManager startEvaluation()
+ */
 public class SubmissionController {
     private Validator validator;
     private Database database;
     private ReviewerManager reviewerManager;
     private EvaluationManager evaluationManager;
-    private NotificationService notificationService;
 
-    public SubmissionController(Validator validator, Database database, ReviewerManager reviewerManager, EvaluationManager evaluationManager, NotificationService notificationService) {
+    public SubmissionController(Validator validator, Database database, ReviewerManager reviewerManager, EvaluationManager evaluationManager) {
         this.validator = validator;
         this.database = database;
         this.reviewerManager = reviewerManager;
         this.evaluationManager = evaluationManager;
-        this.notificationService = notificationService;
     }
 
     //UI calls SubmissionController submit(data)
     // Orchestrates the full sequence
-    public String submit(Object data) {
+    public void submit(Object data) {
         // SubmissionController calls Validator validateFormat(data)
+        // Validator -> SubmissionController valid/invalid
         String validationResult = validator.validateFormat(data);
         // alt invalid -> return error
         if (validationResult.equals("invalid")) {
-            return "error";
-        }
-        //valid -> continue
-        // SubmissionController calls Database saveSubmission(data)
-        Submission submission = new Submission(data);
-        String confirmation = database.saveSubmission(submission);
-        // SubmissionController calls ReviewerManager assignReviewers(submission)
-        List<Reviewer> filteredReviewers = reviewerManager.getAvaliableReviewers();
-        // loop - assign reviewers. SubmissionController calls Reviewr assignReviewers()
-        reviewerManager.assignReviewers(filteredReviewers, submission);
-        database.saveSubmission(submission);
-        submission.setAssignedReviewers(filteredReviewers);
-        // SubmissionController calls EvaluationManager startEvaluation()
-        // loop each reviewer. submitScore(score)
-        // SubmissionController calls Database saveScore(score) (inside the loop)
-        EvaluationResult result = evaluationManager.startEvaluation(submission);
-        //save scores (loop each reviewer)
-        for (double score : result.getScores()) {
-            database.saveScore(score);
-        }
-        // alt outcome NotificationService
-        String outcome = result.getOutcome();
-        if (outcome.equals("accepted")) {
-            notificationService.notifyAcceptance(submission);
-        } else if (outcome.equals("rejected")) {
-            notificationService.notifyRejection(submission);
-        } else if (outcome.equals("revision")) {
-            notificationService.notifyRevision(submission);
+            return;
         }
 
-        return outcome;
+        //valid -> continue
+        // SubmissionController calls Database saveSubmission(data)
+        // Database -> SubmissionController confirmation
+        Submission submission = new Submission(data);
+        String confirmation = database.saveSubmission(submission);
+        System.out.println("database confirmation: " + confirmation);
+        // SubmissionController calls ReviewerManager getAvailableReviewers()
+        // ReviewerManager -> SubmissionController filteredReviewers
+        List<Reviewer> filteredReviewers = reviewerManager.getAvaliableReviewers();
+
+        // [loop - assign reviewers] SubmissionController calls Reviewr assignReview()
+        reviewerManager.assignReviewers(filteredReviewers, submission);
+        submission.setAssignedReviewers(filteredReviewers);
+
+        // SubmissionController calls EvaluationManager startEvaluation()
+        evaluationManager.startEvaluation(submission);
     }
 }

@@ -1,7 +1,14 @@
 package reviewSystem.models;
 
-import java.util.List;
-
+/**
+ * Class as shown in the diagram.
+ * Tracable interactions:
+ * [loop - assign reviewers] SubmissionController calls Reviewer assignReview()
+ * [loop - each reviewr] Reviwer calls EvaluationManager submitScore(score)
+ * Also self calls: 
+ * reviewerManager calls ReviewerManager filterConflicts(reviewerList)
+ * reviewerManager calls ReviewerManager checkWorkload(reviewerList)
+ */
 public class Reviewer {
     private boolean hasConflict;
     private int currentWorkload;

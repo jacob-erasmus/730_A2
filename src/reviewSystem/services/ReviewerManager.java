@@ -7,6 +7,17 @@ import reviewSystem.data.Database;
 import reviewSystem.models.Reviewer;
 import reviewSystem.models.Submission;
 
+/**
+ * Class as shown in the diagram.
+ * Tracable interactions:
+ * SubmissionController -> ReviewerManager getAvaliableReviewers()
+ * ReviewerManager -> Database fetchReviewers()
+ * Database -> ReviewerManager reviewerList
+ * ReviewerManager self calls filterConflicts(reviewerList)
+ * ReviewerManager self calls checkWorkload(reviewerList)
+ * ReviewerManager -> SubmissionController filteredReviewers
+ * [loop - assign reviewers] SubmissionController calls Reviewer assignReview()
+ */
 public class ReviewerManager {
     private Database database;
     public ReviewerManager(Database database) {
@@ -48,6 +59,7 @@ public class ReviewerManager {
 
     //SubmissionController calls Reviewr assignReview(), ReviewerManager handles the loop.
     public void assignReviewers(List<Reviewer> filteredReviewers, Submission submission) {
+        //[loop - assign reviewers]
         for (Reviewer r : filteredReviewers) {
             r.assignReview(submission);
         }

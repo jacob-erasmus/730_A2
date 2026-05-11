@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-* Required to carry the data through the lifelines in the diagram.
-* Also holds assigned reviewers.
+* Not a class shown in the diagram, but required to carry the data through the sequence.
 */
 public class Submission {
-    private Object data; //payload from Researcher
+    // payload from Researcher, could be any data type, so using Object as placeholder.
+    /* Traceable to:
+    * Researcher calls submitResearchOutput(data) on UI, which calls submit(data) on SubmissionController,
+    * which calls validateFormat(data) on Validator and saveSubmission(data) on Database. 
+    */
+    private Object data; 
+    /*
+     * Traceable to:
+     * [loop - assign reviewers] SubmissionController calls Reviewer assignReview()
+     * Required so EvaluationManager can loop through reviewers in [loop - each reviewer] so Reviewer can call submitScore(score) on EvaluationManager.
+     */
     private List<Reviewer> assignedReviewers; 
-    private String status; // set after EvaluationManager applies rules
 
     public Submission(Object data) {
         this.data = data;
         this.assignedReviewers = new ArrayList<>();
-        this.status = "pending";
     }
 
     // Used by Validator.validateFormat(data)
@@ -23,24 +30,14 @@ public class Submission {
         return data;
     }
 
-    // Used by EvaluationManager.startEvaluation()
+    // Used by EvaluationManager.startEvaluation() to iterate [loop - each reviewer]
     public List<Reviewer> getAssignedReviewers() {
         return assignedReviewers;
     }
 
-    // Used by NotificationService
-    public String getStatus() {
-        return status;
-    }
-
-    // Used by SubmissionController after loop - assign reviewers
+    // Called by SubmissionController after [loop - assign reviewers]
     public void setAssignedReviewers(List<Reviewer> assignedReviewers){
         this.assignedReviewers = assignedReviewers;
-    }
-
-    // Used by SubmissionController after EvaluationManager returns outcome via applyRules()
-    public void setStatus(String status) {
-        this.status = status;
     }
     
 }

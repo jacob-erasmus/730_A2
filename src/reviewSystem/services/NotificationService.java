@@ -3,6 +3,14 @@ package reviewSystem.services;
 import reviewSystem.actors.Researcher;
 import reviewSystem.models.Submission;
 
+/**
+ * Class as shown in the diagram.
+ * Tracable interactions:
+ * [alt accepted] EvaluationManager calls NoficationService notifyAcceptance()
+ * [alt rejected] EvaluationManager calls NotificationService notifyRejection()
+ * [alt revision] EvaluationManager calls NotificationService notifyRevision()
+ * final interaction in sequence diagram: NotificationService calls Researcher receiveNotification(outcome)
+ */
 public class NotificationService {
     private Researcher researcher;
     

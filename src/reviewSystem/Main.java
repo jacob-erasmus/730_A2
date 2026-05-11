@@ -11,6 +11,9 @@ import reviewSystem.services.NotificationService;
 import reviewSystem.services.ReviewerManager;
 import reviewSystem.ui.UI;
 
+/**
+ * Main class to set up dependencies and start the sequence.
+ */
 public class Main {
     public static void main(String[] args) {
         // Database has no dependenices, so can be created first.
@@ -24,12 +27,11 @@ public class Main {
         // NotificationService depends on Researcher, so can be created next.
         NotificationService notificationService = new NotificationService(researcher);
         // EvaluationManager depends on NotificationService, so can be created next.
-        EvaluationManager evaluationManager = new EvaluationManager(notificationService);
-        // SubmissionController depends on all 4 services, can be created now.
-        SubmissionController submissionController = new SubmissionController(validator, database, reviewerManager, evaluationManager, notificationService);
+        EvaluationManager evaluationManager = new EvaluationManager(notificationService, database);
+        // SubmissionController, can be created now.
+        SubmissionController submissionController = new SubmissionController(validator, database, reviewerManager, evaluationManager);
         // UI depends on SubmissionController.
         UI ui = new UI(submissionController);
-        //
         // Complete circular dependency - set UI reference in Researcher
         researcher.setUI(ui);
 

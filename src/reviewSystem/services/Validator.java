@@ -1,11 +1,17 @@
 package reviewSystem.services;
 
+/**
+ * Class as shown in the diagram.
+ * Tracable interactions:
+ * SubmissionController -> Validator validateFormat(data)
+ * Validator -> SubmissionController returns "valid" or "invalid"
+ */
 public class Validator {
-    // SubmissionController calls Validator validateFormat(data)
-    // returns "valid" or "invalid"
-    // If invalid will return error.
-    // If valid will continue.
-
+    public Validator() {
+    }
+    // Diagram: SubmissionController -> Validator validateFormat(data)
+    // Returns "valid" or "invalid" to SubmissionController, to control flow in [alt] block.
+    // logic not specified, so returns valid by defaut.
     public String validateFormat(Object data) {
         if (data == null) {
             return "invalid";
