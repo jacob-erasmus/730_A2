@@ -3,7 +3,7 @@ package reviewSystem.controllers;
 import java.util.List;
 
 import javax.management.Notification;
-import javax.xml.validation.Validator;
+import reviewSystem.services.Validator;
 
 import reviewSystem.data.Database;
 import reviewSystem.models.EvaluationResult;

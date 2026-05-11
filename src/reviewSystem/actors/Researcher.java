@@ -11,4 +11,9 @@ public class Researcher {
     public void submitResearchOutput(Object data) {
         ui.submitResearchOutput(data);
     }
+
+    // recieve notification from NotificationService
+    public void receiveNotification(String outcome) {
+        System.out.println("Researcher received notification: " + outcome);
+    }
 }

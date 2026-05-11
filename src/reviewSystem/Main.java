@@ -1,6 +1,6 @@
 package reviewSystem;
 
-import javax.xml.validation.Validator;
+import reviewSystem.services.Validator;
 
 import reviewSystem.actors.Researcher;
 import reviewSystem.controllers.SubmissionController;
@@ -17,8 +17,8 @@ public class Main {
         Database database = new Database();
         Validator validator = new Validator();
         ReviewerManager reviewerManager = new ReviewerManager(database);
-        EvaluationManager evaluationManager = new EvaluationManager();
         NotificationService notificationService = new NotificationService();
+        EvaluationManager evaluationManager = new EvaluationManager(notificationService);
         SubmissionController submissionController = new SubmissionController(validator, database, reviewerManager, evaluationManager, notificationService);
         UI ui = new UI(submissionController);
         Researcher researcher = new Researcher(ui);
