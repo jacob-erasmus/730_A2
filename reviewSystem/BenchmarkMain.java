@@ -8,8 +8,13 @@ import reviewSystem.Evaluation.BenchmarkResults;
 import reviewSystem.Evaluation.DatabaseManager;
 import reviewSystem.Evaluation.Metrics;
 import reviewSystem.Evaluation.Metrics;
+
+/**
+ * Runs the the evaluation system, collects the metrics and prints results.
+ */
 public class BenchmarkMain {
     public static void main(String[] args) throws Exception{
+        // Intitalise shared database
         DatabaseManager.getConnection();
 
         System.out.println("---");
