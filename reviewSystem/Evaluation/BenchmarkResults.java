@@ -2,6 +2,9 @@ package reviewSystem.Evaluation;
 import reviewSystem.Evaluation.Metrics;
 import java.util.*;
 
+/**
+ * Container class for the system's results with the timing data and call snapshot.
+ */
 public class BenchmarkResults {
     private final String systemName;
     private final long[] timesNano;

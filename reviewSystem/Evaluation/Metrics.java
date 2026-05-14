@@ -3,6 +3,9 @@ package reviewSystem.Evaluation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Call counter and timing function.
+ */
 public class Metrics {
     private static final Metrics INSTANCE = new Metrics();
     private final LinkedHashMap<String, Integer> counts = new LinkedHashMap<>();
@@ -13,7 +16,7 @@ public class Metrics {
     public static Metrics getInstance() {
         return INSTANCE;
     }
-
+    
     public void startRun() {
         counts.clear();
         runStartNanoTime = System.nanoTime();

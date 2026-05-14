@@ -5,9 +5,12 @@ import java.util.*;
 
 import reviewSystem.Evaluation.DatabaseManager;
 
+/**
+ * Handles the both baseline and optimisation conditions and returns resutls.
+ */
 public class BenchmarkManager{
-    public static final int WARMUP_RUNS = 10;
-    public static final int BENCHMARK_RUNS = 100;
+    public static final int WARMUP_RUNS = 10;   //to try achieve stable results
+    public static final int BENCHMARK_RUNS = 100;   //repeated runs
 
     // Baseline
     public static BenchmarkResults runBaseline() throws SQLException {
