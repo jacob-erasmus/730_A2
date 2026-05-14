@@ -1,7 +1,7 @@
 package reviewSystem.services;
 
-import reviewSystem.actors.Researcher;
-import reviewSystem.models.Submission;
+import reviewSystemO.actors.Researcher;
+import reviewSystemO.models.Submission;
 
 /**
  * Class as shown in the diagram.

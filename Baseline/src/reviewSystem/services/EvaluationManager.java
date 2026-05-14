@@ -3,9 +3,10 @@ package reviewSystem.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import reviewSystem.data.Database;
-import reviewSystem.models.Reviewer;
-import reviewSystem.models.Submission;
+import reviewSystemO.data.Database;
+import reviewSystemO.models.Reviewer;
+import reviewSystemO.models.Submission;
+import reviewSystemO.services.NotificationService;
 
 /**
  * Class as shown in the diagram.

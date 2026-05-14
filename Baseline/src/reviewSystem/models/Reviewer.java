@@ -1,5 +1,7 @@
 package reviewSystem.models;
 
+import reviewSystemO.models.Submission;
+
 /**
  * Class as shown in the diagram.
  * Tracable interactions:

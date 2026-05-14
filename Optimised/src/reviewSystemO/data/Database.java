@@ -1,9 +1,10 @@
-package reviewSystem.data;
+package reviewSystemO.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import reviewSystem.models.Reviewer;
-import reviewSystem.models.Submission;
+
+import reviewSystemO.models.Reviewer;
+import reviewSystemO.models.Submission;
 
 /**
  * Tracable interactions:

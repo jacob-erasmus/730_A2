@@ -1,14 +1,13 @@
 package reviewSystem;
 
-import reviewSystem.services.Validator;
-
-import reviewSystem.actors.Researcher;
-import reviewSystem.controllers.SubmissionController;
-import reviewSystem.data.Database;
-import reviewSystem.services.EvaluationManager;
-import reviewSystem.services.NotificationService;
-import reviewSystem.services.ReviewerManager;
-import reviewSystem.ui.UI;
+import reviewSystemO.actors.Researcher;
+import reviewSystemO.controllers.SubmissionController;
+import reviewSystemO.data.Database;
+import reviewSystemO.services.EvaluationManager;
+import reviewSystemO.services.NotificationService;
+import reviewSystemO.services.ReviewerManager;
+import reviewSystemO.services.Validator;
+import reviewSystemO.ui.UI;
 
 /**
  * Main class to set up dependencies and start the sequence.

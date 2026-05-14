@@ -1,4 +1,4 @@
-package reviewSystem.controllers;
+package reviewSystemO.controllers;
 
 public class SubmissionController {
     
