@@ -1,5 +1,6 @@
 package reviewSystem.Evaluation;
 import java.sql.*;
+import reviewSystem.Evaluation.Metrics;
 
 public class DatabaseManager {
     private static final String URL = "jdbc:h2:mem:reviewdb;DB_CLOSE_DELAY=-1;MODE=MySQL";

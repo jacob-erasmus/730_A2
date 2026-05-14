@@ -5,6 +5,7 @@ import java.util.List;
 import reviewSystem.Optimised.data.Database;
 import reviewSystem.Optimised.models.Reviewer;
 import reviewSystem.Optimised.models.Submission;
+import reviewSystem.Evaluation.Metrics;
 
 /**
  * Tracable interactions:
@@ -30,6 +31,8 @@ public class ReviewerManager {
     // No longer does the submissionController call getAvailableReviewers() then 
     // assignReviwers(filteredList, submission) separately, no longer can see the assignment loop.
     public void assignReviewers(Submission submission) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("ReviewerManager.assignReviewers");
         List<Reviewer> eligibleReviewers = database.fetchEligibleReviewers();
         //[loop - assign reviewers]
         for (Reviewer reviewer : eligibleReviewers) {

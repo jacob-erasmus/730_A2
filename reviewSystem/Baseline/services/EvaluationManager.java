@@ -6,6 +6,7 @@ import java.util.List;
 import reviewSystem.Baseline.data.Database;
 import reviewSystem.Baseline.models.Reviewer;
 import reviewSystem.Baseline.models.Submission;
+import reviewSystem.Evaluation.Metrics;
 
 /**
  * Class as shown in the diagram.
@@ -44,6 +45,8 @@ public class EvaluationManager {
      * [alt] notifyAcceptance() / notifyRejection() / notifyRevision()
      */
     public void startEvaluation(Submission submission) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.startEvaluation");
         List<Double> scores = new ArrayList<>();
         //loop for each reviewer
         // Reviewer -> EvaluationManager submitScore()
@@ -78,6 +81,8 @@ public class EvaluationManager {
     // Recieves scors collected in loop - each reviewer
     // Returns the average to be used in applyRules().
     public double calculateAverage(List<Double> scores) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.calculateAverage");
         if (scores == null || scores.isEmpty()) {
             return 0.0;
         }
@@ -92,11 +97,15 @@ public class EvaluationManager {
     // Returns boolean consensus to be used in applyRules().
     // Logic not specified in diagram, so placeholder that always returns true.
     public boolean checkConsensus(List<Double> scores) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.checkConsensus");
         return true;
     }
     // EvaluationManager self calls applyRules(averageScore, consensus)
     // Outcome of alt block of accepted, rejected, revision.
     public String applyRules(double averageScore, boolean consensus) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.applyRules");
         if (consensus && averageScore >= ACCEPT_THRESHOLD) { 
             return "accepted";
         } else if (consensus && averageScore < REJECT_THRESHOLD) {  

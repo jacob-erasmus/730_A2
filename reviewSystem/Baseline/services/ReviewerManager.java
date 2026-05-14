@@ -6,6 +6,7 @@ import java.util.List;
 import reviewSystem.Baseline.data.Database;
 import reviewSystem.Baseline.models.Reviewer;
 import reviewSystem.Baseline.models.Submission;
+import reviewSystem.Evaluation.Metrics;
 
 /**
  * Class as shown in the diagram.
@@ -29,6 +30,8 @@ public class ReviewerManager {
     // Then: filterConflicts(reviewerList), checkWorkload(reviewrList)
     // returns filteredReviewers
     public List<Reviewer> getAvaliableReviewers() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("ReviewerManager.getAvailableReviewers");
         List<Reviewer> reviewerList = database.fetchReviewers();
         reviewerList = filterConflicts(reviewerList);
         reviewerList = checkWorkload(reviewerList);
@@ -37,6 +40,8 @@ public class ReviewerManager {
 
     //ReviewerManager self calls filterConflicts(reviewerList)
     public List<Reviewer> filterConflicts(List<Reviewer> reviewerList) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("ReviewerManager.filterConflicts");
         List<Reviewer> filteredList = new ArrayList<>();
         for (Reviewer r : reviewerList) {
             if (!r.hasConflict()) {
@@ -48,6 +53,8 @@ public class ReviewerManager {
 
     //ReviewerManager self calls checkWorkload(reviewerList)
     public List<Reviewer> checkWorkload(List<Reviewer> reviewerList) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("ReviewerManager.checkWorkload");
         List<Reviewer> available = new ArrayList<>();
         for (Reviewer r : reviewerList) {
             if (r.getCurrentWorkload() < 5) { // Assuming max workload is 5
@@ -59,6 +66,8 @@ public class ReviewerManager {
 
     //SubmissionController calls Reviewr assignReview(), ReviewerManager handles the loop.
     public void assignReviewers(List<Reviewer> filteredReviewers, Submission submission) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("ReviewerManager.assignReviewers");
         //[loop - assign reviewers]
         for (Reviewer r : filteredReviewers) {
             r.assignReview(submission);

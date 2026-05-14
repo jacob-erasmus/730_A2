@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import reviewSystem.Baseline.models.Reviewer;
+import reviewSystem.Evaluation.Metrics;
 
 /*
 * Not a class shown in the diagram, but required to carry the data through the sequence.
@@ -29,16 +30,22 @@ public class Submission {
 
     // Used by Validator.validateFormat(data)
     public Object getData() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Submission.getData");
         return data;
     }
 
     // Used by EvaluationManager.startEvaluation() to iterate [loop - each reviewer]
     public List<Reviewer> getAssignedReviewers() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Submission.getAssignedReviewers");
         return assignedReviewers;
     }
 
     // Called by SubmissionController after [loop - assign reviewers]
     public void setAssignedReviewers(List<Reviewer> assignedReviewers){
+        Metrics mc = Metrics.getInstance();
+        mc.record("Submission.setAssignedReviewers");
         this.assignedReviewers = assignedReviewers;
     }
     

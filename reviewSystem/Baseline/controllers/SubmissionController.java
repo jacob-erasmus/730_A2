@@ -8,6 +8,7 @@ import reviewSystem.Baseline.models.Submission;
 import reviewSystem.Baseline.services.EvaluationManager;
 import reviewSystem.Baseline.services.ReviewerManager;
 import reviewSystem.Baseline.services.Validator;
+import reviewSystem.Evaluation.Metrics;
 
 /**
  * Class as shown in the diagram.
@@ -41,6 +42,8 @@ public class SubmissionController {
     //UI calls SubmissionController submit(data)
     // Orchestrates the full sequence
     public void submit(Object data) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("SubmissionController.submit");
         // SubmissionController calls Validator validateFormat(data)
         // Validator -> SubmissionController valid/invalid
         String validationResult = validator.validateFormat(data);

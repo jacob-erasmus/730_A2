@@ -25,6 +25,8 @@ public class Reviewer {
     }
     // SubmissionController calls Reviewer assignReview()
     public void assignReview(Submission submission) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Reviewer.assignReview");
         this.assignedSubmission = submission;
         this.currentWorkload++;
     }
@@ -37,14 +39,20 @@ public class Reviewer {
     }
     // Used by ReviewerManager filterConflicts()
     public boolean hasConflict() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Reviewer.hasConflict");
         return hasConflict;
     }
     // Used by ReviewerManager checkWorkload()
     public int getCurrentWorkload() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Reviewer.getCurrentWorkload");
         return currentWorkload;
     }
     
     public Submission getAssignedSubmission() {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Reviewer.getAssignedSubmission");
         return assignedSubmission;
     }
 

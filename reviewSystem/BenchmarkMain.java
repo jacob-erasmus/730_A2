@@ -7,7 +7,7 @@ import reviewSystem.Evaluation.BenchmarkManager;
 import reviewSystem.Evaluation.BenchmarkResults;
 import reviewSystem.Evaluation.DatabaseManager;
 import reviewSystem.Evaluation.Metrics;
-
+import reviewSystem.Evaluation.Metrics;
 public class BenchmarkMain {
     public static void main(String[] args) throws Exception{
         DatabaseManager.getConnection();

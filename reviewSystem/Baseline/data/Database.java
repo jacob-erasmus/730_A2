@@ -6,7 +6,6 @@ import reviewSystem.Baseline.models.Reviewer;
 import reviewSystem.Baseline.models.Submission;
 import reviewSystem.Evaluation.DatabaseManager;
 import reviewSystem.Evaluation.Metrics;
-
 import java.sql.*;
 
 /**

@@ -6,6 +6,7 @@ import java.util.List;
 import reviewSystem.Optimised.data.Database;
 import reviewSystem.Optimised.models.Reviewer;
 import reviewSystem.Optimised.models.Submission;
+import reviewSystem.Evaluation.Metrics;
 
 /**
  * Tracable interactions:
@@ -40,6 +41,8 @@ public class EvaluationManager {
      * Optimisation: changed from startEvaluation() that was tighly coupled with NotificationService. Now SubmissionController recieves result and decides.
      */
     public String evaluate(Submission submission) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.evaluate");
         List<Double> scores = new ArrayList<>();
         //loop for each reviewer
         // EvaluationManager -> Reviewer submitScore()
@@ -56,6 +59,8 @@ public class EvaluationManager {
     // Replaces calculateAverage(), checkConsensus() and applyRules() with a single method to compute the outcome.
     // returns accepted, rejected or revision.
     public String computeOutcome(List<Double> scores) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("EvaluationManager.compareOutcome");
         if (scores == null || scores.isEmpty()) {
             return "rejected"; 
         }

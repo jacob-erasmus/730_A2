@@ -1,7 +1,7 @@
 package reviewSystem.Optimised.ui;
 
 import reviewSystem.Optimised.controllers.SubmissionController;
-
+import reviewSystem.Evaluation.Metrics;
 /**
  * Tracable interactions:
  * Researcher -> UI submitResearchOutput(data)
@@ -16,6 +16,8 @@ public class UI {
     }
     // Receives submission from researcher, passes to submision controller.
     public void submitResearchOutput(Object data) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("UI.submitResearchOutput");
         // UI -> SubmissionController submit(data)
         submissionController.submit(data);
     }

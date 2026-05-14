@@ -1,5 +1,5 @@
 package reviewSystem.Optimised.services;
-
+import reviewSystem.Evaluation.Metrics;
 /**
  * Tracable interactions:
  * SubmissionController -> Validator validate(data)
@@ -11,6 +11,8 @@ public class Validator {
     // Diagram: SubmissionController -> Validator validate(data)
     // Returns: boolean isValid.
     public boolean validate(Object data) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Validator.validate");
         if (data == null) {
             return false;
         }

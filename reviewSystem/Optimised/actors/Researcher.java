@@ -1,7 +1,7 @@
 package reviewSystem.Optimised.actors;
 
 import reviewSystem.Optimised.ui.UI;
-
+import reviewSystem.Evaluation.Metrics;
 /**
  * Tracable interactions:
  * Researcher -> UI submitResearchOutput(data)
@@ -21,6 +21,8 @@ public class Researcher {
     // Initates the enitre sequence
     // Researcher -> UI: submitResearchOutput(data)
     public void submitResearchOutput(Object data) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("Researcher.submitResearchOutput");
         ui.submitResearchOutput(data);
     }
 }

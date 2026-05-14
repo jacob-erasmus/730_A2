@@ -6,7 +6,7 @@ import reviewSystem.Optimised.services.EvaluationManager;
 import reviewSystem.Optimised.services.NotificationService;
 import reviewSystem.Optimised.services.ReviewerManager;
 import reviewSystem.Optimised.services.Validator;
-
+import reviewSystem.Evaluation.Metrics;
 /**
  * Central orchestrator of the sequence.
  * Tracable interactions:
@@ -46,6 +46,8 @@ public class SubmissionController {
 
     //UI calls SubmissionController submit(data)
     public void submit(Object data) {
+        Metrics mc = Metrics.getInstance();
+        mc.record("SubmissionController.submit");
         // SubmissionController calls Validator validate(data)
         // returns: boolean isValid
         boolean isValid = validator.validate(data);
