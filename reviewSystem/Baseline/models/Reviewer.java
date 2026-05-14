@@ -1,7 +1,9 @@
 package reviewSystem.Baseline.models;
 
-import reviewSystem.Baseline.models.Submission;
+import java.util.concurrent.ThreadLocalRandom;
 
+import reviewSystem.Baseline.models.Submission;
+import reviewSystem.Evaluation.Metrics;
 /**
  * Class as shown in the diagram.
  * Tracable interactions:
@@ -29,8 +31,9 @@ public class Reviewer {
 
     // Reviewer calls EvaluationManager submitScore(score)
     public double submitScore() {
-        double score = 0.0; // Placeholder, diagram doesn't specify scoring logic, only submission of score.
-        return score;
+        Metrics.getInstance().record("Reviewer.submitScore");
+        // Returns a random score 0–10 so applyRules/computeOutcome exercises all branches
+        return ThreadLocalRandom.current().nextDouble(0.0, 10.0);
     }
     // Used by ReviewerManager filterConflicts()
     public boolean hasConflict() {

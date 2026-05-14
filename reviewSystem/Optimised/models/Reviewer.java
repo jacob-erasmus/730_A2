@@ -1,5 +1,7 @@
 package reviewSystem.Optimised.models;
+import java.util.concurrent.ThreadLocalRandom;
 
+import reviewSystem.Evaluation.Metrics;
 /**
  * Class as shown in the diagram.
  * Tracable interactions:
@@ -26,8 +28,9 @@ public class Reviewer {
 
     // [loop - each reviewer] EvaluationManager calls Reviewer submitScore()
     public double submitScore() {
-        double score = 0.0; // Placeholder
-        return score;
+        Metrics.getInstance().record("Reviewer.submitScore");
+        // Returns a random score 0–10 so applyRules/computeOutcome exercises all branches
+        return ThreadLocalRandom.current().nextDouble(0.0, 10.0);
     }
 
     public boolean hasConflict() {

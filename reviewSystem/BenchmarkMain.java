@@ -1,12 +1,12 @@
 package reviewSystem;
 
+import java.util.Map;
+
 import reviewSystem.*;
 import reviewSystem.Evaluation.BenchmarkManager;
 import reviewSystem.Evaluation.BenchmarkResults;
 import reviewSystem.Evaluation.DatabaseManager;
 import reviewSystem.Evaluation.Metrics;
-
-import java.util.Map;
 
 public class BenchmarkMain {
     public static void main(String[] args) throws Exception{
@@ -46,7 +46,7 @@ public class BenchmarkMain {
         System.out.println("---");
         System.out.println(" [2]  EXECUTION TIME  (n=" + BenchmarkManager.BENCHMARK_RUNS + " runs, microseconds)");
         System.out.println(separator('-', 66));
-        System.out.printf("Metric\n Baseline (us)\n Optimised (us)\n Change");
+        System.out.printf("Metric\n Baseline \n Optimised \n Change");
         System.out.println(separator('-', 66));
         printTimingRow("Mean",   baseline.getMeanMicros(),   optimised.getMeanMicros());
         printTimingRow("Median", baseline.getMedianMicros(), optimised.getMedianMicros());
