@@ -27,7 +27,7 @@ public class BenchmarkMain {
         System.out.println("---");
         System.out.println("INTERACTION COUNTS (last run)");
         System.out.println("---");
-        System.out.println("Method\n"+ "Baseline\n" + "Optimised\n");
+        System.out.printf("%-40s %8s %10s%n","Method","Baseline", "Optimised");
         System.out.println("---");
 
         java.util.Set<String> allKeys = new java.util.LinkedHashSet<>();
@@ -36,17 +36,17 @@ public class BenchmarkMain {
         for (String key : allKeys) {
             int b = baseline.getCounts().getOrDefault(key, 0);
             int o = optimised.getCounts().getOrDefault(key, 0);
-            System.out.println(key + "\n" + b + "\n" + o);
+            System.out.printf("%-40s %8s %10s%n", "key", "b", "o");
         }
         System.out.println("---");
-        System.out.println("TOTAL CALLS\n" + baseline.getTotalCalls() + optimised.getTotalCalls());
+        System.out.printf("%-40s %8s %10s%n", "TOTAL CALLS", baseline.getTotalCalls(),  optimised.getTotalCalls());
         double callReduction = 100.0 * (baseline.getTotalCalls() - optimised.getTotalCalls()) / baseline.getTotalCalls();
-        System.out.printf("Reduction:\n", callReduction);
+        System.out.printf("Reduction: %.1f%%%n", callReduction);
 
         System.out.println("---");
         System.out.println(" [2]  EXECUTION TIME  (n=" + BenchmarkManager.BENCHMARK_RUNS + " runs, microseconds)");
         System.out.println(separator('-', 66));
-        System.out.printf("Metric\n Baseline \n Optimised \n Change");
+        System.out.printf("%-14s %14s %14s %10s%n", "Metric", "Baseline", "Optimised", "Change");
         System.out.println(separator('-', 66));
         printTimingRow("Mean",   baseline.getMeanMicros(),   optimised.getMeanMicros());
         printTimingRow("Median", baseline.getMedianMicros(), optimised.getMedianMicros());
