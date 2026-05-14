@@ -6,7 +6,6 @@ import java.util.List;
 import reviewSystem.data.Database;
 import reviewSystem.models.Reviewer;
 import reviewSystem.models.Submission;
-import reviewSystem.services.NotificationService;
 
 /**
  * Class as shown in the diagram.
