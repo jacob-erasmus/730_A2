@@ -1,6 +1,6 @@
 package reviewSystem.models;
 
-import reviewSystemO.models.Submission;
+import reviewSystem.models.Submission;
 
 /**
  * Class as shown in the diagram.

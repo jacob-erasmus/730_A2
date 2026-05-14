@@ -2,12 +2,12 @@ package reviewSystem.controllers;
 
 import java.util.List;
 
-import reviewSystemO.data.Database;
-import reviewSystemO.models.Reviewer;
-import reviewSystemO.models.Submission;
-import reviewSystemO.services.EvaluationManager;
-import reviewSystemO.services.ReviewerManager;
-import reviewSystemO.services.Validator;
+import reviewSystem.data.Database;
+import reviewSystem.models.Reviewer;
+import reviewSystem.models.Submission;
+import reviewSystem.services.EvaluationManager;
+import reviewSystem.services.ReviewerManager;
+import reviewSystem.services.Validator;
 
 /**
  * Class as shown in the diagram.

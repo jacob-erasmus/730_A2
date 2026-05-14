@@ -3,9 +3,9 @@ package reviewSystem.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import reviewSystemO.data.Database;
-import reviewSystemO.models.Reviewer;
-import reviewSystemO.models.Submission;
+import reviewSystem.data.Database;
+import reviewSystem.models.Reviewer;
+import reviewSystem.models.Submission;
 
 /**
  * Class as shown in the diagram.

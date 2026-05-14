@@ -3,7 +3,7 @@ package reviewSystem.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import reviewSystemO.models.Reviewer;
+import reviewSystem.models.Reviewer;
 
 /*
 * Not a class shown in the diagram, but required to carry the data through the sequence.

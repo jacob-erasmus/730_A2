@@ -1,6 +1,6 @@
 package reviewSystem.actors;
 
-import reviewSystemO.ui.UI;
+import reviewSystem.ui.UI;
 
 /**
  * Class as shown in Diagram.

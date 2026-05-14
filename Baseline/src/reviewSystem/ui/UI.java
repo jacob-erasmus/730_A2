@@ -1,6 +1,6 @@
 package reviewSystem.ui;
 
-import reviewSystemO.controllers.SubmissionController;
+import reviewSystem.controllers.SubmissionController;
 
 /**
  * Class as shown in the diagram.
